@@ -19,6 +19,9 @@
      requirements   — array of strings, or null to omit the section
      responsibilities — array of strings, or null to omit the section
      benefits      — array of strings, or null to omit the section
+     shiftOptions   — array of shift-block labels the applicant can choose
+                      from on the application form, or null if this role
+                      has a fixed schedule (hides the field entirely)
    Leave a field as null (not an empty string) to hide that
    section entirely rather than showing it empty.
    =========================================================== */
@@ -41,6 +44,14 @@ const jobs = [
       "No previous experience required",
       "Must be available for an 8-hour full-time shift",
       "Must be able to work remotely"
+    ],
+    // Shift blocks the applicant can pick from on the application form.
+    // Set to null (instead of an array) for jobs with a fixed schedule —
+    // the shift-selection field is hidden automatically when this is null.
+    shiftOptions: [
+      "12:00 AM – 8:00 AM (Night)",
+      "8:00 AM – 4:00 PM (Morning)",
+      "4:00 PM – 12:00 AM (Evening)"
     ],
     responsibilities: null,
     benefits: null
@@ -236,6 +247,8 @@ const applyModal = $("#apply-modal");
 const modalCloseBtn = $("#modal-close");
 const applyForm = $("#apply-form");
 const positionInput = $("#f-position");
+const shiftField = $("#shift-field");
+const shiftSelect = $("#f-shift");
 
 let currentJobId = null;
 
@@ -243,6 +256,27 @@ function openApplyModal(jobId) {
   const job = jobs.find((j) => j.id === jobId);
   currentJobId = jobId;
   positionInput.value = job ? job.title : "";
+
+  // Show the shift-selection dropdown only for jobs that define
+  // shiftOptions; otherwise hide and clear it so it doesn't block
+  // submission for jobs with a fixed schedule.
+  clearFieldError("f-shift");
+  shiftSelect.classList.remove("invalid");
+  if (job && Array.isArray(job.shiftOptions) && job.shiftOptions.length) {
+    shiftSelect.innerHTML = '<option value="" disabled selected>Select an 8-hour shift</option>';
+    job.shiftOptions.forEach((option) => {
+      const opt = document.createElement("option");
+      opt.value = option;
+      opt.textContent = option;
+      shiftSelect.appendChild(opt);
+    });
+    shiftField.hidden = false;
+    shiftSelect.required = true;
+  } else {
+    shiftField.hidden = true;
+    shiftSelect.required = false;
+    shiftSelect.value = "";
+  }
 
   modalOverlay.classList.add("open");
   applyModal.classList.add("open");
@@ -409,6 +443,14 @@ function validateForm() {
     valid = false;
   }
 
+  clearFieldError("f-shift");
+  shiftSelect.classList.remove("invalid");
+  if (shiftSelect.required && !shiftSelect.value) {
+    setFieldError("f-shift", "Please select your preferred shift.");
+    shiftSelect.classList.add("invalid");
+    valid = false;
+  }
+
   clearFieldError("f-cv");
   dropzone.classList.remove("invalid");
   if (!selectedFile) {
@@ -439,6 +481,7 @@ applyForm.addEventListener("submit", (e) => {
     email: $("#f-email").value.trim(),
     phone: $("#f-phone").value.trim(),
     location: $("#f-location").value.trim(),
+    shiftPreference: shiftField.hidden ? null : shiftSelect.value,
     coverNote: $("#f-cover").value.trim(),
     cvFileName: selectedFile ? selectedFile.name : null
   };
