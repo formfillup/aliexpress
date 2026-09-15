@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AliExpress Careers</title>
+<title>Careers — Join Our Team</title>
 <meta name="description" content="Explore open positions and apply online." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +31,7 @@
     <div class="nav-actions">
       <a href="#jobs" class="btn btn-primary btn-sm" data-scroll>View jobs</a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span><span></span><span></span>
+        <span class="nav-toggle-bars"><span></span><span></span><span></span></span>
       </button>
     </div>
   </div>
@@ -179,6 +179,14 @@
       <div class="field">
         <label for="f-position">Position applying for</label>
         <input type="text" id="f-position" name="position" readonly />
+      </div>
+
+      <div class="field" id="shift-field" hidden>
+        <label for="f-shift">Preferred shift *</label>
+        <select id="f-shift" name="shiftPreference">
+          <option value="" disabled selected>Select an 8-hour shift</option>
+        </select>
+        <span class="error-msg" data-error-for="f-shift"></span>
       </div>
 
       <div class="field">
