@@ -131,26 +131,37 @@ input, textarea { font-family: inherit; font-size: 1rem; }
 
 .nav-toggle {
   display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.nav-toggle-bars {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  width: 40px;
-  height: 40px;
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
 }
-.nav-toggle span {
+.nav-toggle-bars span {
   display: block;
   height: 2px;
-  width: 18px;
+  width: 100%;
   margin: 0 auto;
   background: var(--ink);
+  border-radius: 1px;
   transition: transform var(--transition), opacity var(--transition);
 }
-.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .mobile-menu {
   display: none;
@@ -171,7 +182,8 @@ input, textarea { font-family: inherit; font-size: 1rem; }
 @media (max-width: 860px) {
   .nav-links { display: none; }
   .nav-actions .btn { display: none; }
-  .nav-toggle { display: flex; }
+  .nav-toggle { display: inline-flex; }
+  .nav-inner { justify-content: space-between; }
 }
 
 /* ===========================================================
@@ -553,6 +565,7 @@ input, textarea { font-family: inherit; font-size: 1rem; }
 .field input[type="text"],
 .field input[type="email"],
 .field input[type="tel"],
+.field select,
 .field textarea {
   width: 100%;
   padding: 11px 13px;
@@ -563,9 +576,10 @@ input, textarea { font-family: inherit; font-size: 1rem; }
   transition: border-color var(--transition);
   resize: vertical;
 }
-.field input:focus, .field textarea:focus { border-color: var(--brand); }
+.field select { appearance: auto; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--brand); }
 .field input[readonly] { background: var(--bg-alt); color: var(--muted); }
-.field input.invalid, .field textarea.invalid { border-color: var(--danger); }
+.field input.invalid, .field select.invalid, .field textarea.invalid { border-color: var(--danger); }
 
 .error-msg {
   display: block;
