@@ -40,10 +40,21 @@ const jobs = [
     description:
       "We are hiring Customer Support Executives for a remote full-time position. The role is suitable for both experienced applicants and freshers.",
     requirements: [
-      "Freshers can apply",
-      "No previous experience required",
-      "Must be available for an 8-hour full-time shift",
-      "Must be able to work remotely"
+      "Respond to customer questions through email, live chat, WhatsApp, or other online platforms",
+      "Provide accurate information about products, orders, payments, shipping, returns, and refunds",
+      "Track customer orders and provide timely updates",
+      "Handle complaints professionally and work toward satisfactory solutions",
+      "Troubleshoot basic customer issues and escalate complex cases to the appropriate team",
+      "Maintain a polite, helpful, and professional tone in every interaction",
+      "Record customer conversations, complaints, and resolutions in the company's system",
+      "Follow up with customers when additional information or action is required",
+      "Coordinate with logistics, sales, and technical teams to resolve customer concerns",
+      "Protect customer privacy and handle personal information responsibly",
+      "Meet response-time, quality, attendance, and customer-satisfaction targets",
+      "Follow company policies, scripts, and standard operating procedures",
+      "Prepare basic reports on common customer issues and feedback",
+      "Stay updated on products, services, promotions, and support procedures",
+      "Work independently from home while maintaining reliable internet connectivity and availability during the assigned shift"
     ],
     // Shift blocks the applicant can pick from on the application form.
     // Set to null (instead of an array) for jobs with a fixed schedule —
